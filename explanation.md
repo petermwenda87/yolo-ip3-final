@@ -4,7 +4,7 @@
 For the frontend and backend, I opted for the `node:alpine` image. It's lightweight and minimal, which is great for performance. It also ensures that the application is built quickly and the image size remains small—perfect for both development and production environments.
 
 ## Key Dockerfile Directives
-- **FROM**: We use `node:alpine` for both the frontend and backend since it’s a solid, optimized choice for Node.js apps.
+- **FROM**: Used `node:alpine` for both the frontend and backend since it’s a solid, optimized choice for Node.js apps.
 - **COPY**: This command is used to bring in local files and dependencies into the container.
 - **RUN**: Used to install necessary dependencies for both the frontend and backend.
 - **EXPOSE**: This opens the necessary ports for our services: 3000 for the frontend, 5000 for the backend, and 27017 for MongoDB.
@@ -26,5 +26,5 @@ For image versioning, I adhered to standard best practices by tagging images cle
 
 ## DockerHub Image Screenshot
 Here’s a screenshot of the deployed Docker image on DockerHub showing the version:
-![Docker Image](./dockerhub.png)
+![Docker Image](./docker1.png) (./docker2.png)
 
