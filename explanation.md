@@ -24,7 +24,12 @@ I followed a solid Git workflow, making regular commits with meaningful messages
 ## Good Practices
 For image versioning, I adhered to standard best practices by tagging images clearly (like `app:v1.0.0`). This makes it easy to identify specific versions of the images in DockerHub.
 
-## DockerHub Image Screenshot
-Here’s a screenshot of the deployed Docker image on DockerHub showing the version:
-![Docker Image](./docker1.png) (./docker2.png)
+## DockerHub Image Screenshots
 
+Here are screenshots of the deployed Docker images on DockerHub showing their versions:
+
+**Frontend Docker Image**
+![Frontend Docker Image](./docker1.png)
+
+**Backend Docker Image**
+![Backend Docker Image](./docker2.png)
