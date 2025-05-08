@@ -1,0 +1,30 @@
+FROM ubuntu:20.04
+
+# Prevent interactive prompts
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install SSH and sudo
+RUN apt-get update && \
+    apt-get install -y openssh-server sudo curl && \
+    mkdir /var/run/sshd
+
+
+# Create vagrant user with passwordless sudo
+RUN useradd -m -s /bin/bash vagrant && \
+    echo 'vagrant ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+# Add Vagrant's insecure public key
+RUN mkdir -p /home/vagrant/.ssh && \
+    chmod 700 /home/vagrant/.ssh && \
+    curl -fsSL https://raw.githubusercontent.com/hashicorp/vagrant/master/keys/vagrant.pub -o /home/vagrant/.ssh/authorized_keys && \
+    chmod 600 /home/vagrant/.ssh/authorized_keys && \
+    chown -R vagrant:vagrant /home/vagrant/.ssh
+
+# SSH login fix
+RUN sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication no/' /etc/ssh/sshd_config && \
+    sed -i 's/#PubkeyAuthentication yes/PubkeyAuthentication yes/' /etc/ssh/sshd_config
+
+EXPOSE 22
+
+CMD ["/usr/sbin/sshd", "-D"]
