@@ -6,4 +6,5 @@ vault.yml
 .vscode/
 .vscode
 .vscode/*
-.vscode/*.json
+.vscode/*.jsonk8s/minikube-linux-amd64
+k8s/minikube-linux-amd64
