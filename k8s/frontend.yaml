@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: frontend
-        image: petermwenda/yolo-client:v1.0.1
+        image: petermwenda/yolo-client:v1.0.0
         ports:
         - containerPort: 3000
         resources:
@@ -40,3 +40,4 @@ spec:
     - protocol: TCP
       port: 3000
       targetPort: 3000
+

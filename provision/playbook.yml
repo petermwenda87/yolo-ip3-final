@@ -1,0 +1,29 @@
+---
+- name: Setup Yolo e-commerce app
+  hosts: all
+  become: yes
+
+  tasks:
+    - name: Install Docker and Docker Compose
+      apt:
+        name:
+          - docker.io
+          - docker-compose
+        update_cache: yes
+
+    - name: Start Docker service
+      systemd:
+        name: docker
+        enabled: true
+        state: started
+
+    - name: Copy app files to VM (optional if using synced folders)
+      copy:
+        src: /vagrant/
+        dest: /home/vagrant/yolo/
+        remote_src: no
+
+    - name: Run docker-compose
+      shell: docker-compose up -d
+      args:
+        chdir: /home/vagrant/yolo

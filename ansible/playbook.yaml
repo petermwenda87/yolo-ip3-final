@@ -1,0 +1,7 @@
+- name: Deploy YOLO App Containers
+  hosts: localhost
+  become: false
+  tasks:
+    - name: Include deployment tasks
+      include_role:
+        name: deploy

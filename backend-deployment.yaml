@@ -16,10 +16,13 @@ spec:
     spec:
       containers:
         - name: backend
-          image: brianbwire/brian-yolo-backend:v1.0.0
-          command: ["npm", "start"] 
+          image: petermwenda/yolo-backend:v1.0.1
+          command: ["npm", "start"]
           ports:
             - containerPort: 5000
+          env:
+            - name: MONGODB_URI
+              value: "mongodb://mongo-service:27017/yolo"
           resources:
             limits:
               memory: "256Mi"
@@ -41,4 +44,3 @@ spec:
       port: 5000
       targetPort: 5000
       nodePort: 30100
-  

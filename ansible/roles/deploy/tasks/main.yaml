@@ -1,0 +1,29 @@
+- name: Deploy frontend to Kubernetes
+  command: kubectl apply -f frontend-deployment.yaml
+  args:
+    chdir: "{{ playbook_dir }}/.."
+
+- name: Deploy backend to Kubernetes
+  command: kubectl apply -f backend-deployment.yaml
+  args:
+    chdir: "{{ playbook_dir }}/.."
+
+- name: Deploy MongoDB to Kubernetes
+  command: kubectl apply -f k8s/mongo.yaml
+  args:
+    chdir: "{{ playbook_dir }}/.."
+
+- name: Apply frontend service
+  command: kubectl apply -f k8s/frontend-service.yaml
+  args:
+    chdir: "{{ playbook_dir }}/.."
+
+- name: Apply backend service
+  command: kubectl apply -f backend-service.yaml
+  args:
+    chdir: "{{ playbook_dir }}/.."
+
+- name: Apply MongoDB service
+  command: kubectl apply -f mongo-service.yaml
+  args:
+    chdir: "{{ playbook_dir }}/.."

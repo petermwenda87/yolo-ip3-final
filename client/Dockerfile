@@ -1,28 +1,28 @@
-# Use an official Node runtime as a parent image
-FROM node:14-slim AS build
+# Use an official lightweight Node.js image
+FROM node:18-alpine
 
-# Set the working directory in the container
-WORKDIR /usr/src/app
-
-# Copy the package.json and package-lock.json files to the container
-COPY package*.json ./
-
-# Install application dependencies
-RUN npm install
-
-# Copy the rest of the application code to the container
-COPY . .
-
-FROM alpine:3.16.7
-
+# Set working directory
 WORKDIR /app
 
-RUN apk update && apk add npm
+# Install dependencies
+COPY package*.json ./
+RUN npm install
 
-COPY --from=build /usr/src/app /app
+# ✅ Allow legacy OpenSSL algorithms for Webpack
+ENV NODE_OPTIONS=--openssl-legacy-provider
 
-# Expose the port the app runs on
+# Install `serve` to serve static build
+RUN npm install -g serve
+
+# Copy all files
+COPY . .
+
+# Build the React app
+RUN npm run build
+
+# Expose port
 EXPOSE 3000
 
-# Define the command to run your app
-CMD ["npm", "start"]
+# Serve the app
+CMD ["serve", "-s", "build"]
+

@@ -1,0 +1,7 @@
+- name: Deploy YOLO App to Kubernetes
+  hosts: localhost
+  connection: local
+  gather_facts: no
+
+  roles:
+    - deploy
