@@ -8,3 +8,4 @@ vault.yml
 .vscode/*
 .vscode/*.jsonk8s/minikube-linux-amd64
 k8s/minikube-linux-amd64
+__pycache__/
