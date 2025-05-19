@@ -1,35 +1,77 @@
-# Explanation of Docker Setup for E-commerce App
+# Explanation: Yolo E-commerce App Deployment on Google Kubernetes Engine (GKE)
 
-## Choice of Base Images
-For the frontend and backend, I opted for the `node:alpine` image. It's lightweight and minimal, which is great for performance. It also ensures that the application is built quickly and the image size remains small—perfect for both development and production environments.
+## Introduction
 
-## Key Dockerfile Directives
-- **FROM**: Used `node:alpine` for both the frontend and backend since it’s a solid, optimized choice for Node.js apps.
-- **COPY**: This command is used to bring in local files and dependencies into the container.
-- **RUN**: Used to install necessary dependencies for both the frontend and backend.
-- **EXPOSE**: This opens the necessary ports for our services: 3000 for the frontend, 5000 for the backend, and 27017 for MongoDB.
+This explanation outlines the architecture, deployment process, and tools used to successfully deploy the Yolo e-commerce application on Google Kubernetes Engine (GKE) as part of IP4 – Orchestration.
 
-## Docker Compose Networking
-I set up a **bridge network** called `app-net` so all containers could talk to each other. The important port mappings are as follows:
-- **Frontend**: `3000:3000` — This lets us access the app on `localhost:3000`.
-- **Backend**: `5000:5000` — The backend is exposed at `localhost:5000`.
-- **MongoDB**: `27017:27017` — This ensures MongoDB is accessible for connections.
+The project follows a microservices-based architecture using Docker and Kubernetes for container orchestration. It demonstrates a production-style deployment of a full-stack e-commerce web application with persistent data storage and scalable services.
 
-## Volume Usage
-To make sure that any product data you add persists even after a container restart, I’ve set up a **Docker volume** for MongoDB. The volume is named `app-mongo-data` and ensures that MongoDB data is stored outside of the container.
+---
 
-## Git Workflow
-I followed a solid Git workflow, making regular commits with meaningful messages to keep track of progress. The project structure is well-organized with clear and concise commit history. I made sure to include at least 10 commits, following the necessary best practices.
+## Architecture
 
-## Good Practices
-For image versioning, I adhered to standard best practices by tagging images clearly (like `app:v1.0.0`). This makes it easy to identify specific versions of the images in DockerHub.
+The application is made up of three main components:
 
-## DockerHub Image Screenshots
+- **Frontend (React)**: Provides the user interface for browsing products and managing the cart.
+- **Backend (Node.js + Express)**: Handles API logic, authentication, and database communication.
+- **Database (MongoDB)**: Stores product data, user sessions, and cart information.
 
-Here are screenshots of the deployed Docker images on DockerHub showing their versions:
+### Kubernetes Setup:
 
-**Frontend Docker Image**
-![Frontend Docker Image](./docker1.png)
+- **Deployments**: Used for the frontend, backend, and MongoDB (as an optional stateless pod).
+- **StatefulSet**: MongoDB also runs as a StatefulSet to ensure stable network identity and persistent volume usage.
+- **Services**: ClusterIP services expose each app internally, while a LoadBalancer service is used to expose the frontend to the internet.
+- **Persistent Volume Claims (PVCs)**: Ensure MongoDB data persists across restarts.
 
-**Backend Docker Image**
-![Backend Docker Image](./docker2.png)
+---
+
+## Tools and Technologies
+
+- **Docker**: Used to containerize the frontend and backend.
+- **DockerHub**: Stores the custom-built Docker images.
+- **Google Cloud Platform (GCP)**: Provides the cloud infrastructure for hosting the Kubernetes cluster.
+- **Google Kubernetes Engine (GKE)**: Manages and orchestrates the application containers.
+- **kubectl**: CLI tool for managing the Kubernetes cluster.
+- **MongoDB**: Official Docker image used for NoSQL database.
+
+---
+
+## Step-by-Step Summary
+
+1. **Dockerization**:
+   - Created Dockerfiles for both frontend and backend.
+   - Built and pushed images to DockerHub under:
+     - `petermwenda/yolo-frontend:v1.0.0`
+     - `petermwenda/yolo-backend:v1.0.1`
+
+2. **Kubernetes Manifests**:
+   - Created YAML files for deployments and services for each component.
+   - Ensured environment variables and image references were correct.
+
+3. **MongoDB Persistence**:
+   - Implemented both a standard Deployment and an optional StatefulSet with a PVC to maintain persistent MongoDB data.
+
+4. **GKE Deployment**:
+   - Used `gcloud` to authenticate and connect to the GKE cluster.
+   - Applied all manifests using `kubectl apply -f k8s/`.
+
+5. **Verification**:
+   - Ran `kubectl get pods` to ensure all pods were in a `Running` state.
+   - Confirmed backend logs were displaying the expected "Server listening on port 5000" message.
+   - Verified the frontend was accessible via the external IP provided by the LoadBalancer service.
+
+---
+
+## Challenges and Resolutions
+
+- **DockerHub authentication**: Faced permission issues when pushing images; resolved by resetting the password and logging in via Cloud Shell.
+- **Mongoose connection deprecation warning**: Fixed by updating `mongoose.connect()` logic to be async/await-based.
+- **GKE auth error**: Resolved by re-authenticating `gcloud` with the correct account and resetting credentials using `gcloud auth login`.
+
+---
+
+## Conclusion
+
+This deployment successfully demonstrates how to build, containerize, and orchestrate a microservice-based web application on GKE using Docker, Kubernetes, and persistent volumes. It reflects real-world DevOps practices and cloud-native application design.
+
+
