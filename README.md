@@ -1,3 +1,4 @@
+ HEAD
 # 🛒 Yolo E-commerce App - Automated Deployment with Ansible + Kubernetes
 
 This project is a containerized e-commerce application deployed using **Ansible** and **Kubernetes**. It includes a React frontend, Node.js backend, and MongoDB for data storage.
@@ -39,10 +40,33 @@ cd yolo/ansible
 yolo/
 ├── ansible/
 │   ├── playbook.yml
+=======
+# 🐳 YOLO E-commerce App — Kubernetes & Ansible Deployment
+
+This project is a containerized e-commerce web application deployed to a local Kubernetes cluster using Minikube. It includes automation with **Ansible** and follows DevOps best practices for infrastructure as code and repeatable deployments.
+
+---
+
+## 📁 Project Structure
+
+```bash
+.
+├── client/                     # React frontend
+├── backend/                    # Node.js + Express backend
+├── k8s/                        # Kubernetes manifests
+│   ├── frontend-deployment.yaml
+│   ├── backend-deployment.yaml
+│   ├── mongo.yaml
+│   ├── frontend-service.yaml
+│   └── backend-service.yaml
+├── ansible/                   # Ansible playbooks
+│   ├── deploy.yaml
+>>>>>>> df790eb6f1627ad3dbb1c774253cb8ac2ffc0cf6
 │   └── roles/
 │       └── deploy/
 │           └── tasks/
 │               └── main.yaml
+<<<<<<< HEAD
 ├── backend/
 │   └── (Node.js backend code)
 ├── client/
@@ -56,3 +80,6 @@ yolo/
 │   └── mongo-service.yaml 
 └── README.md
 # TODO: Add monitoring tools like Prometheus
+=======
+├── Dockerfile(s)              # For client and backend
+├── docker-compose.yaml        # For local development and testing

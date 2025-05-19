@@ -1,11 +1,23 @@
-app-mongo-data
+# Ignore MongoDB data volume
 app-mongo-data/
+app-mongo-data
+
+# Ignore Ansible variable and secret files
 vars.yml
 vault.yml
+
+# Ignore Vagrant files
 .vagrant/
+
+# Ignore VSCode config
 .vscode/
-.vscode
-.vscode/*
-.vscode/*.jsonk8s/minikube-linux-amd64
+.vscode/*.json
+
+# Ignore Kubernetes binaries or temp files
 k8s/minikube-linux-amd64
-__pycache__/
+
+# Node.js
+node_modules/
+.env
+
+k8s/minikube-linux-amd64
