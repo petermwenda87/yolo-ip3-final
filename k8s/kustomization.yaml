@@ -1,0 +1,7 @@
+resources:
+  - client-deployment.yaml
+  - client-service.yaml
+  - backend-deployment.yaml
+  - backend-service.yaml
+  - mongo-statefulset.yaml
+  - mongo-service.yaml
