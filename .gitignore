@@ -21,3 +21,4 @@ node_modules/
 .env
 
 k8s/minikube-linux-amd64
+k8s/minikube-linux-amd64
